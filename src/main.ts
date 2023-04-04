@@ -19,29 +19,32 @@ let finished = false;
 const image = unsplashImages[new Date().getHours()]
 const width = Number.parseInt(window.getComputedStyle(document.documentElement).getPropertyValue("--width"))
 const height = Number.parseInt(window.getComputedStyle(document.documentElement).getPropertyValue("--height"))
-const rotations = await digestMessage(width * height, image.id)
+let rotations = new Uint8Array()
 
 setupImages(document.querySelector<HTMLDivElement>('#images')!)
 
 function setupImages(container: HTMLDivElement) {
   let rotationDirection: RotationDirection = 'right';
 
-  for (let i = 0; i < width * height; i++) {
-    const column = (i % width);
-    const row = Math.floor(i / width);
+  digestMessage(width * height, image.id).then(r => {
+    rotations = r;
+    for (let i = 0; i < width * height; i++) {
+      const column = (i % width);
+      const row = Math.floor(i / width);
 
-    const tile = document.createElement('div')
-    tile.className = 'tile'
-    tile.style.backgroundImage = `url(${image.url})`
-    tile.style.backgroundPosition = `calc(${-column} * var(--tile-size)) calc(-${row} * var(--tile-size))`
-    tile.style.transform = `rotate(calc(${rotations[i]} *90deg))`
-    tile.addEventListener('click', () => {
-      rotationDirection === 'left' ? rotateLeft(i) : rotateRight(i)
+      const tile = document.createElement('div')
+      tile.className = 'tile'
+      tile.style.backgroundImage = `url(${image.url})`
+      tile.style.backgroundPosition = `calc(${-column} * var(--tile-size)) calc(-${row} * var(--tile-size))`
       tile.style.transform = `rotate(calc(${rotations[i]} *90deg))`
-      checkWin()
-    })
-    container.appendChild(tile)
-  }
+      tile.addEventListener('click', () => {
+        rotationDirection === 'left' ? rotateLeft(i) : rotateRight(i)
+        tile.style.transform = `rotate(calc(${rotations[i]} *90deg))`
+        checkWin()
+      })
+      container.appendChild(tile)
+    }
+  })
 }
 
 function rotateRight(index: number) {

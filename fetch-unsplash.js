@@ -13,6 +13,7 @@ unsplash.photos
         orientation: "landscape",
         contentFilter: "high",
         count: 24,
+        topicIds: ["nature", "travel"]
     })
     .then(result => {
         if (result.errors) {

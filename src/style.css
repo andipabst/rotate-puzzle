@@ -41,8 +41,7 @@ html, body {
     width: var(--tile-size);
     height: var(--tile-size);
     position: relative;
-    border-right: thin solid white;
-    border-bottom: thin solid white;
+    border: thin solid white;
     float: left;
     background-size: calc(var(--tile-size) * var(--width)) calc(var(--tile-size) * var(--height));
     transition: all 0.5s ease

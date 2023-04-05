@@ -35,14 +35,14 @@ html, body {
 #images {
     width: calc(var(--tile-size) * var(--width));
     height: calc(var(--tile-size) * var(--height));
+
+    display: grid;
+    grid-template-columns: repeat(var(--width), var(--tile-size));
+    grid-template-rows: repeat(var(--height), var(--tile-size));
 }
 
 .tile {
-    width: var(--tile-size);
-    height: var(--tile-size);
-    position: relative;
     border: thin solid white;
-    float: left;
     background-size: calc(var(--tile-size) * var(--width)) calc(var(--tile-size) * var(--height));
     transition: all 0.5s ease
 }

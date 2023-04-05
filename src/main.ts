@@ -35,7 +35,7 @@ function setupImages(container: HTMLDivElement) {
       const tile = document.createElement('div')
       tile.className = 'tile'
       tile.style.backgroundImage = `url(${image.url})`
-      tile.style.backgroundPosition = `calc(${-column} * var(--tile-size)) calc(-${row} * var(--tile-size))`
+      tile.style.backgroundPosition = `calc(${-column} * var(--tile-size)) calc(${-row} * var(--tile-size))`
       tile.style.transform = `rotate(calc(${rotations[i]} *90deg))`
       tile.addEventListener('click', () => {
         rotationDirection === 'left' ? rotateLeft(i) : rotateRight(i)

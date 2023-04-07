@@ -44,5 +44,5 @@ html, body {
 .tile {
     border: thin solid white;
     background-size: calc(var(--tile-size) * var(--width)) calc(var(--tile-size) * var(--height));
-    transition: all 0.5s ease
+    transition: all 800ms ease
 }

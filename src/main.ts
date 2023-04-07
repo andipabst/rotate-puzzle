@@ -6,6 +6,7 @@ type RotationDirection = 'left' | 'right'
 
 const fireworksContainer = document.querySelector<HTMLDivElement>('#fireworks')!
 const fireworks = new Fireworks(fireworksContainer, { /* options */})
+const progress = document.querySelector<HTMLSpanElement>('#progress')!
 
 async function digestMessage(length: number, imageId: string) {
   const date = new Date().toISOString().substring(0, 10)
@@ -60,7 +61,8 @@ function rotateLeft(index: number) {
 }
 
 function checkWin() {
-  if (!finished && rotations.every(r => r % 4 === 0)) {
+  const leftToRotate = rotations.filter(r => r % 4 !== 0).length
+  if (!finished && leftToRotate === 0) {
     finished = true;
     fireworksContainer.style.zIndex = '1000'
     fireworks.start()
@@ -69,5 +71,7 @@ function checkWin() {
         fireworksContainer.style.zIndex = '-1'
       })
     }, 2000)
+  } else {
+    progress.innerText = String(leftToRotate)
   }
 }
